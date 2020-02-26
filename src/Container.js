@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import raf from "raf";
+import detectPassiveEvents from 'detect-passive-events';
 
 export default class Container extends PureComponent {
   static childContextTypes = {
@@ -62,8 +63,12 @@ export default class Container extends PureComponent {
   getParent = () => this.node;
 
   componentDidMount() {
+    if (typeof detectPassiveEvents.hasSupport === 'undefined') {
+      detectPassiveEvents.update();
+    }
+    const eventOptions = detectPassiveEvents.hasSupport ? { capture: false, passive: true } : false;
     this.events.forEach(event =>
-      window.addEventListener(event, this.notifySubscribers)
+      window.addEventListener(event, this.notifySubscribers, eventOptions)
     );
   }
 

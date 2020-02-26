@@ -25,6 +25,7 @@
   "license": "MIT",
   "homepage": "https://github.com/captivationsoftware/react-sticky",
   "dependencies": {
+    "detect-passive-events": "^1.0.4",
     "prop-types": "^15.5.8",
     "raf": "^3.3.0"
   },
